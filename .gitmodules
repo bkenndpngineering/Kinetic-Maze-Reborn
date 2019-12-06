@@ -1,6 +1,3 @@
-[submodule "Kinect-Skeleton-Tracker"]
-	path = Kinect-Skeleton-Tracker
-	url = https://github.com/bkenndpngineering/Kinect-Skeleton-Tracker.git
 [submodule "RPi_ODrive"]
 	path = RPi_ODrive
 	url = https://github.com/dpengineering/RPi_ODrive.git
