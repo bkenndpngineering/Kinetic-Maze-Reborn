@@ -1,4 +1,6 @@
 from RPi_ODrive import ODrive_Ease_Lib
+import odrive.enums
+import time
 
 class KineticMazeMotor:
     def __init__(self):
@@ -16,10 +18,26 @@ class KineticMazeMotor:
             return True
 
     def initialize(self):
+        print("Initializing ODrive")
         # ODrive:
-        # need to configure current settings
-        # need to precalibrate motor and encoder
-        MOTOR_CURRENT_LIMIT =
-        MOTOR_CALIBRATION_CURRENT =
-        AXIS_STATE_MOTOR_CALIBRATION =
-        
+        # need to configure current settings?
+        # need to precalibrate motor and encoder?
+
+        MOTOR_CURRENT_LIMIT = #
+        self.od.motor.config.current_lim = MOTOR_CURRENT_LIMIT
+        MOTOR_CALIBRATION_CURRENT = #
+        self.od.motor.config.calibration_current = MOTOR_CALIBRATION_CURRENT
+
+        # wait for motor to finish calibrating
+        self.od.requested_state = odrive.enums.AXIS_STATE_MOTOR_CALIBRATION
+        while self.od.current_state != odrive.enums.AXIS_STATE_IDLE:
+            pass
+
+        # wait for oscillations to die down
+        CALIBRATION_DELAY_TIME = #
+        time.sleep(CALIBRATION_DELAY_TIME)
+
+        CYCLE_TRIGGER_GPIO_PIN = #
+        self.od.cycle_trigger.config.gpio_pin_num = CYCLE_TRIGGER_GPIO_PIN
+        self.od.cycle_trigger.config.enabled = True
+
