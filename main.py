@@ -13,18 +13,26 @@ while True:
     if (cv2.waitKey(1) & 0xFF == ord('q')):
         break
 
+    # API usage for reference
     angle = t.calculate_angle("RIGHT_HAND", "LEFT_HAND")
-    print(angle)
-    if angle is not None:
-                if t.returnY("LEFT_HAND") < t.returnY("LEFT_ELBOW") and t.returnY("RIGHT_HAND") < t.returnY("RIGHT_ELBOW"):
-                    print("Got angle:", angle)
+    difference = t.calculate_difference("RIGHT_HAND", "LEFT_HAND")
+    coordinatesLeftHand = t.get_coordinates("LEFT_HAND")
+    coordinatesRightHand = t.get_coordinates("RIGHT_HAND")
+    coordinatesLeftElbow = t.get_coordinates("LEFT_ELBOW")
+    coordinatesRightElbow = t.get_coordinates("RIGHT_ELBOW")
 
-                else:
-                    print("Hands not above elbow")
-            else:
-                #self.kmm.set_velocity(self.kmm.ramp_down())
-                print("No user detected")
-                #sw.updateTimer(firstTime,timer_on)
-    '''
+    if angle is not None:
+        if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]):
+            print("RIGHT HAND ABOVE ELBOW")
+        else:
+            print("RIGHT HAND NOT ABOVE ELBOW")
+
+        if (coordinatesRightElbow[1] < coordinatesRightElbow[1]):
+            print("LEFT HAND ABOVE ELBOW")
+        else:
+            print("LEFT HAND NOT ABOVE ELBOW")
+    else:
+        print("NO USER DETECTED")
+
 t.stop()
 cv2.destroyAllWindows()
