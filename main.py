@@ -81,7 +81,7 @@ while prog_running:
                 pygame.draw.rect(display, (100, 25, 25), (10, 10, 20, L_height))
                 pygame.draw.rect(display, (100, 25, 25), (SCREEN_WIDTH-30, 10, 20, R_height))
 
-                ########## DO ODRIVE THINGS############
+                ########## DO ODRIVE THINGS ############
 
                 # angle to velocity conversion?
                 # motion smoother?
