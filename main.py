@@ -9,8 +9,8 @@ while f is None:
     f = t.getFrame()
 
 pygame.init()
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = f.shape[1]
+SCREEN_HEIGHT = f.shape[0]
 display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Skeleton Viewer')
 clock = pygame.time.Clock()
