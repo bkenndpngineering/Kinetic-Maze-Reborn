@@ -91,7 +91,7 @@ while prog_running:
             else:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
                 display.blit(newText, (0, 0))
-                print("PUT HANDS ABOVE ELBOWS")
+                #print("PUT HANDS ABOVE ELBOWS")
 
         else:
             if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
@@ -104,7 +104,9 @@ while prog_running:
             pygame.draw.circle(display, (0,0,255), (int(coordinatesRightHand[0]), int(coordinatesRightHand[1])), 10)
 
     else:
-        print("NO USER DETECTED")
+        newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
+        display.blit(newText, (0, 0))
+        #print("NO USER DETECTED")
 
     pygame.display.update()
     clock.tick(60)
