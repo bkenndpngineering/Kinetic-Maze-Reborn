@@ -2,6 +2,7 @@ from Kinect_Skeleton_Tracker.tracker import Tracker
 import pygame
 import numpy
 from interact import Button
+from physics import KineticMazeMotor
 
 t = Tracker()
 t.run()
@@ -17,6 +18,8 @@ pygame.display.set_caption('Skeleton Viewer')
 clock = pygame.time.Clock()
 
 button1 = Button(300, 100, 300, 300, (100,100,100), "HUMBUG!")
+
+motor = KineticMazeMotor()
 
 prog_running = True
 
@@ -52,11 +55,11 @@ while prog_running:
         else:
             print("LEFT HAND NOT ABOVE ELBOW")'''
 
-        if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
+        """if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
             print("HUMBUG!")
 
         print("RHX: ", coordinatesRightHand)
-        pygame.draw.circle(display, (255,0,0), (int(coordinatesRightHand[0]), int(coordinatesRightHand[1])), 10)
+        pygame.draw.circle(display, (255,0,0), (int(coordinatesRightHand[0]), int(coordinatesRightHand[1])), 10)"""
     else:
         print("NO USER DETECTED")
 
