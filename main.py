@@ -1,14 +1,7 @@
 from Kinect_Skeleton_Tracker.tracker import Tracker
 import pygame
 import numpy
-import logging
-
-logging.basicConfig(filename='./telemetry.log', filemode='a', format="%(levelname)s | %(name)s | %(message)s")
-
-
-
-
-
+from interact import Button
 
 t = Tracker()
 t.run()

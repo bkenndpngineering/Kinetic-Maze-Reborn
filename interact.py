@@ -11,33 +11,29 @@ largeFont = pygame.font.Font("../libs/PressStart2P-Regular.ttf", 24)
 hugeFont = pygame.font.Font("../libs/PressStart2P-Regular.ttf", 32)
 
 class Button: #a crude button, no color change when hover or click. Add if needed
-    def __init__(self):
-        pass
-    def draw(self,x, y, xcenter, ycenter, color, text): #x and y is dimensions, and xcenter and ycenter are coordinates
+    def __init__(self, x, y, xcenter, ycenter, color, text, transparency=0.5):
         self.xcenter = xcenter
         self.ycenter = ycenter
         self.x = x
         self.y = y
-
-        self.text = text
+        self.text = str(text)
         self.color = color
+        self.selfButton = Rect(xcenter - (x / 2), ycenter - (y / 2), x, y)
+        self.transparency = transparency
 
-        self.selfButton = Rect(xcenter - (x/2), ycenter - (y/2), x, y)
+    def draw(self, screen): #x and y is dimensions, and xcenter and ycenter are coordinates
 
-        pygame.draw.rect(screen,color,Rect(xcenter - (x/2), ycenter - (y/2), x, y)) #Draw Button
+        pygame.draw.rect(screen, (self.color[0], self.color[1], self.color[2], self.transparency), Rect(self.xcenter - (self.x/2), self.ycenter - (y/2), self.x, self.y)) #Draw Button
 
-        newText = smallFont.render(text, True, (0,0,255)) #Add text to buttons, at small font
-        textSize = myfont.size(text)
-        screen.blit(newText, (xcenter- (textSize[0] / 2.),ycenter - (textSize[1] / 2.)))
-        pygame.display.update()
+        newText = smallFont.render(self.text, True, (0,0,255)) #Add text to buttons, at small font
+        textSize = medFont.size(self.text) ## marked for future review...
+        screen.blit(newText, (self.xcenter - (textSize[0] / 2.), self.ycenter - (textSize[1] / 2.)))
 
-    def inBox(self): #if mouse in box
-
-        mouse = pygame.mouse.get_pos()
-        click = pygame.mouse.get_pressed()
-
-        if selfButton.collidepoint(mouse):
-                return True
+    def inBox(self, x, y): #if mouse in box
+        if self.selfButton.collidepoint((x, y)):
+            return True
+        else:
+            return False
 
 '''
 How to detect clicks
