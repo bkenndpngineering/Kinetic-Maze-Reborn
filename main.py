@@ -1,5 +1,6 @@
-import cv2
 from Kinect_Skeleton_Tracker.tracker import Tracker
+import pygame
+import numpy
 
 t = Tracker()
 t.run()
@@ -7,11 +8,25 @@ f = t.getFrame()
 while f is None:
     f = t.getFrame()
 
-while True:
-    f = t.getFrame()
-    cv2.imshow("img", f)
-    if (cv2.waitKey(1) & 0xFF == ord('q')):
-        break
+pygame.init()
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+pygame.display.set_caption('Skeleton Viewer')
+clock = pygame.time.Clock()
+
+prog_running = True
+
+while prog_running:
+    frame = t.getFrame()
+    frame = (255*frame)
+    frame = frame.swapaxes(0, 1)
+    frame = pygame.surfarray.make_surface(frame)
+    display.blit(frame, (0,0))
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            prog_running = False
 
     # API usage for reference
     angle = t.calculate_angle("RIGHT_HAND", "LEFT_HAND")
@@ -34,5 +49,9 @@ while True:
     else:
         print("NO USER DETECTED")
 
+    pygame.display.update()
+    clock.tick(60)
+
 t.stop()
-cv2.destroyAllWindows()
+pygame.quit()
+quit()
