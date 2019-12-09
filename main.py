@@ -27,7 +27,7 @@ while True:
         else:
             print("RIGHT HAND NOT ABOVE ELBOW")
 
-        if (coordinatesRightElbow[1] < coordinatesRightElbow[1]):
+        if (coordinatesRightHand[1] < coordinatesRightElbow[1]):
             print("LEFT HAND ABOVE ELBOW")
         else:
             print("LEFT HAND NOT ABOVE ELBOW")
