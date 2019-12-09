@@ -52,10 +52,11 @@ while prog_running:
         else:
             print("LEFT HAND NOT ABOVE ELBOW")'''
 
-        if button1.inBox(coordinatesRightHand[1], coordinatesRightHand[0]):
+        if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
             print("HUMBUG!")
 
         print("RHX: ", coordinatesRightHand)
+        pygame.draw.circle(display, (255,0,0), (int(coordinatesRightHand[0]), int(coordinatesRightHand[1])), 10)
     else:
         print("NO USER DETECTED")
 
