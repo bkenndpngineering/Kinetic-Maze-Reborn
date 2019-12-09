@@ -16,6 +16,8 @@ display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Skeleton Viewer')
 clock = pygame.time.Clock()
 
+button1 = Button(300, 100, 300, 300, (100,100,100), "HUMBUG!")
+
 prog_running = True
 
 while prog_running:
@@ -25,6 +27,8 @@ while prog_running:
     frame = pygame.surfarray.make_surface(frame)
     display.blit(frame, (0,0))
 
+    button1.draw(display)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             prog_running = False
@@ -32,13 +36,13 @@ while prog_running:
     # API usage for reference
     angle = t.calculate_angle("RIGHT_HAND", "LEFT_HAND")
     difference = t.calculate_difference("RIGHT_HAND", "LEFT_HAND")
-    coordinatesLeftHand = t.get_coordinates("LEFT_HAND")
-    coordinatesRightHand = t.get_coordinates("RIGHT_HAND")
+    coordinatesRightHand = t.get_coordinates("LEFT_HAND")
+    coordinatesLeftHand = t.get_coordinates("RIGHT_HAND")
     coordinatesLeftElbow = t.get_coordinates("LEFT_ELBOW")
     coordinatesRightElbow = t.get_coordinates("RIGHT_ELBOW")
 
     if angle is not None:
-        if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]):
+        '''if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]):
             print("RIGHT HAND ABOVE ELBOW")
         else:
             print("RIGHT HAND NOT ABOVE ELBOW")
@@ -46,7 +50,12 @@ while prog_running:
         if (coordinatesRightHand[1] < coordinatesRightElbow[1]):
             print("LEFT HAND ABOVE ELBOW")
         else:
-            print("LEFT HAND NOT ABOVE ELBOW")
+            print("LEFT HAND NOT ABOVE ELBOW")'''
+
+        if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
+            print("HUMBUG!")
+        else:
+           print("BUG HUMUS!!!")
     else:
         print("NO USER DETECTED")
 
