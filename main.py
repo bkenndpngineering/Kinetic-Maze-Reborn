@@ -52,10 +52,10 @@ while prog_running:
         else:
             print("LEFT HAND NOT ABOVE ELBOW")'''
 
-        if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
+        if button1.inBox(coordinatesRightHand[1], coordinatesRightHand[0]):
             print("HUMBUG!")
-        else:
-           print("BUG HUMUS!!!")
+
+        print("RHX: ", coordinatesRightHand)
     else:
         print("NO USER DETECTED")
 
