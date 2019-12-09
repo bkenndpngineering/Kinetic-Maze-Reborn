@@ -70,11 +70,12 @@ while prog_running:
                     # velocity positive
                     R_height =  (angle - 0) * (SCREEN_HEIGHT-10 - 0) / (90 - 0) + 0
                     # map 0, 90, 0 screen_height -10
-                    #angle *= 1
+                    angle *= 1
                 else:
                     # velocity negative
-                    #angle *= -1
+                    #
                     L_height = (angle - 0) * (SCREEN_HEIGHT - 10 - 0) / (90 - 0) + 0
+                    angle *= -1
 
 
                 pygame.draw.rect(display, (100, 25, 25), (10, 10, 20, L_height))
@@ -82,6 +83,7 @@ while prog_running:
 
                 ########## DO ODRIVE THINGS############
 
+                # angle to velocity conversion?
                 # motion smoother?
 
                 ########################################
