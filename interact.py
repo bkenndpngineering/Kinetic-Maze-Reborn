@@ -11,14 +11,14 @@ import time
 #hugeFont = pygame.font.Font("../libs/PressStart2P-Regular.ttf", 32)
 
 class Button: #a crude button, no color change when hover or click. Add if needed
-    def __init__(self, width, height, x, y, color, text, transparency=0.5):
+    def __init__(self, width, height, x, y, text, transparency=0.5):
         pygame.font.init()
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.text = str(text)
-        self.color = color
+        self.color = (255,0,0)
         self.selfButton = Rect(x, y, width, height)
         self.transparency = transparency
 
@@ -27,9 +27,26 @@ class Button: #a crude button, no color change when hover or click. Add if neede
         self.largeFont = pygame.font.Font("libs/PressStart2P-Regular.ttf", 24)
         self.hugeFont = pygame.font.Font("libs/PressStart2P-Regular.ttf", 32)
 
+        self.pushed = False
+        self.push_count = 0
+
+    def reset(self):
+        self.push_count = 0
+
+    def push(self):
+        self.push_count += 1
+        if self.push_count > 255:
+            self.push_count = 255
+
+        if self.push_count >= 255:
+            self.pushed = True
+
+    def get_pushed(self):
+        return self.pushed
+
     def draw(self, screen): #x and y is dimensions, and xcenter and ycenter are coordinates
 
-        pygame.draw.rect(screen, self.color, self.selfButton) #Draw Button
+        pygame.draw.rect(screen, (self.color[0]-self.push_count, self.color[1]+self.push_count, self.color[2]), self.selfButton) #Draw Button
 
         newText = self.smallFont.render(self.text, True, (0,0,255)) #Add text to buttons, at small font
         textSize = self.smallFont.size(self.text) ## marked for future review...
