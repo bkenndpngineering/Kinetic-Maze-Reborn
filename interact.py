@@ -21,7 +21,7 @@ class Button: #a crude button, no color change when hover or click. Add if neede
         self.selfButton = Rect(xcenter - (x / 2), ycenter - (y / 2), x, y)
         self.transparency = transparency
 
-    def draw(self, screen): #x and y is dimensions, and xcenter and ycenter are coordinates
+    def draw(self, screen): #x and y is dimensions of the box (size), and xcenter and ycenter are coordinates (where to draw)
 
         pygame.draw.rect(screen, (self.color[0], self.color[1], self.color[2], self.transparency), Rect(self.xcenter - (self.x/2), self.ycenter - (y/2), self.x, self.y)) #Draw Button
 
