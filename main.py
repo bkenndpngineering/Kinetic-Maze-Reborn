@@ -2,7 +2,7 @@ from Kinect_Skeleton_Tracker.tracker import Tracker
 import pygame
 import numpy
 from interact import Button
-#from physics import KineticMazeMotor
+from physics import KineticMazeMotor
 
 # map function
 # (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -25,7 +25,7 @@ largeFont = pygame.font.Font("libs/PressStart2P-Regular.ttf", 22)
 
 button1 = Button(100, 50, 50, 50, "Start")
 
-#motor = KineticMazeMotor()
+motor = KineticMazeMotor()
 
 prog_running = True
 gamestate_started = False
