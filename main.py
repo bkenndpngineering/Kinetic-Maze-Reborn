@@ -1,9 +1,17 @@
 from Kinect_Skeleton_Tracker.tracker import Tracker
+from highscores import Scoreboard
 import pygame
 import numpy
 from interact import Button
 from physics import KineticMazeMotor
 import math
+
+import time
+
+
+
+
+
 
 # map function
 # (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -19,18 +27,23 @@ pygame.init()
 SCREEN_WIDTH = f.shape[1]
 SCREEN_HEIGHT = f.shape[0]
 display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Skeleton Viewer')
+pygame.display.set_caption('Kinetic Maze v.3')
 clock = pygame.time.Clock()
 
-largeFont = pygame.font.Font("libs/PressStart2P-Regular.ttf", 22)
+#Timer
+sb = Scoreboard(100, (120, 600))
+startTime = 0
 
-button1 = Button(100, 50, 50, 50, "Start")
+#GUI
+largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 22)
+startButton = Button(100, 50, 50, 50, "Start")
 
-motor = KineticMazeMotor()
+
+# Game
+#motor = KineticMazeMotor()
 
 prog_running = True
 gamestate_started = False
-
 while prog_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -40,10 +53,11 @@ while prog_running:
     frame = (255*frame)
     frame = frame.swapaxes(0, 1)
     frame = pygame.surfarray.make_surface(frame)
+    frame = pygame.transform.flip(frame, True, False)
     display.blit(frame, (0,0))
 
     if gamestate_started == False:
-        button1.draw(display)
+        startButton.draw(display)
     else:
         # draw scoreboard?
         pass
@@ -81,11 +95,9 @@ while prog_running:
                 pygame.draw.rect(display, (100, 25, 25), (10, 10, 20, L_height))
                 pygame.draw.rect(display, (100, 25, 25), (SCREEN_WIDTH-30, 10, 20, R_height))
 
-                ########## DO ODRIVE THINGS ############
+                ########## ODRIVE THINGS ############
 
-                # angle to velocity conversion?
-                # motion smoother?
-                motor.set_velocity(motor.adjust_angle(math.radians(angle)))
+                #motor.set_velocity(motor.adjust_angle(math.radians(angle)))
 
                 ########################################
 
@@ -95,18 +107,18 @@ while prog_running:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
                 display.blit(newText, (0, 0))
                 #print("PUT HANDS ABOVE ELBOWS")
-                motor.set_velocity(motor.ramp_down())
+                #motor.set_velocity(motor.ramp_down())
 
         else:
-            if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]) and button1.inBox(coordinatesLeftHand[0], coordinatesLeftHand[1]):
-                button1.push()
-                if button1.get_pushed() == True:
+            if startButton.inBox(coordinatesRightHand[0], coordinatesRightHand[1]) and startButton.inBox(coordinatesLeftHand[0], coordinatesLeftHand[1]):
+                startButton.push()
+                if startButton.get_pushed() == True:
                     gamestate_started = True
-                    button1.reset()
-
+                    startTime = time.time()
+                    startButton.reset()
                     #AFK tracker to quit to menu without saving if afk
 
-            # for user convenience
+            # for user convenience, draw both left and right hands
             pygame.draw.circle(display, (0,0,255), (int(coordinatesRightHand[0]), int(coordinatesRightHand[1])), 10)
             pygame.draw.circle(display, (255,0,0), (int(coordinatesLeftHand[0]), int(coordinatesLeftHand[1])), 10)
 
@@ -114,6 +126,24 @@ while prog_running:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
         display.blit(newText, (0, 0))
         #print("NO USER DETECTED")
+
+    #events loop for pygame misc.
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                self.od = odrive.find_any()
+
+                #quit odrive
+                pygame.display.quit()
+                pygame.quit()
+                sys.exit()
+            if event.key == pygame.K_n:
+                pass #newgame without main menu
+            if event.key == pygame.K_r:
+                t.stop() #does not work!!!!!!
+                t.run()
+
 
     pygame.display.update()
     clock.tick(60)

@@ -5,11 +5,8 @@ from pygame.locals import *
 
 
 
-#names taken from the top 25 most popular baby names of 2018 and the NATO phonetic alphabet
-samplePlaceholder = ["Alfa","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliett","Kilo","Lima","Mike","November","Oscar","Papa","Quebec","Romeo","Sierra","Tango","Uniform","Victor","Whisky","Xray","Yankee","Zulu"]
-sampleMaleNames = ["Liam","Noah","William","James","Oliver","Benjamin","Elijah","Lucas","Mason","Logan","Alexander","Ethan","Jacob","Michael","Daniel","Henry","Jackson","Sebastian","Aiden","Matthew","Samuel","David","Joseph","Carter","Owen"]
-sampleFemaleNames = ["Emma","Olivia", "Ava", "Isabella","Sophia","Charlotte","Mia","Amelia","Harper","Evelyn","Abigail","Emily","Elizabeth","Mila","Ella","Avery","Sofia","Camila","Aria","Scarlett","Victoria","Madison","Luna","Grace","Chloe"]
 
+samplePlaceholder = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
 
 
@@ -21,32 +18,32 @@ class Scoreboard:
         self.low, self.high = scorerange
 
         try:
-            f = open(scorepath,"r")
+            f = open(self.scorepath,"r")
             f.close()
         except:
             self.createNew()
 
         #autopopulate if no scores found
-        with open(scorepath) as f:
+        with open(self.scorepath) as f:
             first = f.read(1)
             if not first:
-                self.genScores(self.top)
+                self.genScores()
 
     def createNew(self):
-        f = open(scorepath,"a")
-        self.genScores(self, self.top)
+        f = open(self.scorepath,"a")
+        self.genScores()
         self.orderScores()
         f.close()
 
     def addEntry(self,name,score):
-        f=open(scorepath,"a")
+        f=open(self.scorepath,"a")
         f.write("{}/{}/\n".format(name, score))
 
     def getTop(self,number):
         names = []
         scores = []
 
-        f=open(scorepath,"r")
+        f=open(self.scorepath,"r")
         lines = f.readlines()
         read = lines[0:number]
 
@@ -59,7 +56,7 @@ class Scoreboard:
         return names,scores
 
     def getEntry(self, number):
-        f=open(scorepath,"r")
+        f=open(self.scorepath,"r")
 
         lines = f.readlines()
         read = lines[number-1]
@@ -70,29 +67,27 @@ class Scoreboard:
         return name,score
 
     def deleteEntry(self, number):
-        with open(scorepath,"r") as f:
+        with open(self.scorepath,"r") as f:
             lines = f.readlines()
 
         lines.pop(number-1)
 
-        with open(scorepath, "w") as f:
+        with open(self.scorepath, "w") as f:
             for line in lines:
                 f.write(line)
 
     def genScores(self):
         random.seed()
         for x in range(0,self.top):
-            value = random.randint(0,1)
-            if value == 0:
-                name = random.choice(sampleMaleNames) + random.choice(samplePlaceholder)
-            if value == 1:
-                name = random.choice(sampleFemaleNames) + random.choice(samplePlaceholder)
+            name = ""
+            for x in range(0,2):
+                name += (random.choice(samplePlaceholder))
             score = random.randint(self.low, self.high)
             self.addEntry(name,score)
 
     def orderScores(self):
         scores = []
-        with open(scorepath,"r") as f:
+        with open(self.scorepath,"r") as f:
             lines = f.readlines()
 
         for x in lines:
@@ -107,7 +102,7 @@ class Scoreboard:
             par = "/".join([arr[0],str(arr[1]),"\n"])
             parsed.append(par)
 
-        with open(scorepath, "w") as f:
+        with open(self.scorepath, "w") as f:
             index = 0
             for line in lines:
                 f.write(parsed[index])
@@ -129,7 +124,7 @@ class Scoreboard:
 
     def getTotal(self):
         total = 0
-        with open(scorepath,"r") as f:
+        with open(self.scorepath,"r") as f:
             lines = f.readlines()
         for item in lines:
             total += 1
@@ -141,7 +136,7 @@ class Scoreboard:
 
         rank = 1
 
-        with open(scorepath,"r") as f:
+        with open(self.scorepath,"r") as f:
             lines = f.readlines()
 
         for x in lines:
@@ -151,10 +146,6 @@ class Scoreboard:
             else:
                 break
         return rank
-
-class timeparser:
-    def __init__(self):
-        pass
 
     def secToDisp(self, secs): #convert raw seconds into minutes:seconds. Try to keep it below one hour.
         mins = 0
