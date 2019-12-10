@@ -86,7 +86,7 @@ while prog_running:
 
                 # angle to velocity conversion?
                 # motion smoother?
-                print(motor.adjust_angle(math.radians(angle)))
+                motor.set_velocity(motor.adjust_angle(math.radians(angle)))
 
                 ########################################
 
@@ -96,7 +96,7 @@ while prog_running:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
                 display.blit(newText, (0, 0))
                 #print("PUT HANDS ABOVE ELBOWS")
-                #motor.set_velocity(motor.ramp_down())
+                motor.set_velocity(motor.ramp_down())
 
         else:
             if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
