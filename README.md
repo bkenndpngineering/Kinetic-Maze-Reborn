@@ -3,6 +3,11 @@ Kinetic Maze project implementation using Kinect-Skeleton-Tracker module
 
 For documentation, see the project wiki.
 
+## Python Dependencies
+```
+pip3 install pygame opencv-contrib-python openni
+```
+
 ## Setup
 1. See readmes of submodules for their dependencies and installation instructions.
 2. After downloading this repository, __before__ running the program
