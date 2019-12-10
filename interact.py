@@ -48,8 +48,8 @@ class Button: #a crude button, no color change when hover or click. Add if neede
 
         pygame.draw.rect(screen, (self.color[0]-self.push_count, self.color[1]+self.push_count, self.color[2]), self.selfButton) #Draw Button
 
-        newText = self.smallFont.render(self.text, True, (0,0,255)) #Add text to buttons, at small font
-        textSize = self.smallFont.size(self.text) ## marked for future review...
+        newText = self.medFont.render(self.text, True, (0,0,255)) #Add text to buttons, at small font
+        textSize = self.medFont.size(self.text) ## marked for future review...
         #screen.blit(newText, (self.xcenter - (textSize[0] / 2.), self.ycenter - (textSize[1] / 2.)))
         screen.blit(newText, (self.x, self.y)) # marked for review
 

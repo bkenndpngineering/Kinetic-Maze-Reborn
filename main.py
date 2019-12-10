@@ -56,7 +56,6 @@ while prog_running:
     coordinatesLeftElbow = t.get_coordinates("RIGHT_ELBOW")
 
     if angle is not None:
-
         if gamestate_started == True:
             if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]) and (coordinatesRightHand[1] < coordinatesRightElbow[1]):
                 #print(angle)
@@ -96,14 +95,17 @@ while prog_running:
                 #print("PUT HANDS ABOVE ELBOWS")
 
         else:
-            if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]):
+            if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]) and button1.inBox(coordinatesLeftHand[0], coordinatesLeftHand[1]):
                 button1.push()
                 if button1.get_pushed() == True:
                     gamestate_started = True
                     button1.reset()
 
+                    #AFK tracker to quit to menu without saving if afk
+
             # for user convenience
             pygame.draw.circle(display, (0,0,255), (int(coordinatesRightHand[0]), int(coordinatesRightHand[1])), 10)
+            pygame.draw.circle(display, (255,0,0), (int(coordinatesLeftHand[0]), int(coordinatesLeftHand[1])), 10)
 
     else:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
