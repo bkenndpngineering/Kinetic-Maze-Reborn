@@ -3,6 +3,7 @@ import pygame
 import numpy
 from interact import Button
 from physics import KineticMazeMotor
+import math
 
 # map function
 # (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
@@ -84,6 +85,7 @@ while prog_running:
 
                 # angle to velocity conversion?
                 # motion smoother?
+                motor.set_velocity(motor.adjust_angle(math.radians(angle)))
 
                 ########################################
 
@@ -93,6 +95,7 @@ while prog_running:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
                 display.blit(newText, (0, 0))
                 #print("PUT HANDS ABOVE ELBOWS")
+                motor.set_velocity(motor.ramp_down())
 
         else:
             if button1.inBox(coordinatesRightHand[0], coordinatesRightHand[1]) and button1.inBox(coordinatesLeftHand[0], coordinatesLeftHand[1]):
