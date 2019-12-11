@@ -5,7 +5,7 @@ import numpy
 from interact import Button
 from physics import KineticMazeMotor
 import math
-
+import sys
 import time
 
 
@@ -110,13 +110,14 @@ while prog_running:
                 #motor.set_velocity(motor.ramp_down())
 
         else:
-            halfWidth = SCREEN_WIDTH/2
+            halfWidth = SCREEN_WIDTH/2 #Main menu gui
             if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
                 if startButton.get_pushed() == True:
-                    gamestate_started = True
-                    startTime = time.time()
                     startButton.reset()
+                    gamestate_started = True
+                    startTime = int(time.time())
+
                     #AFK tracker to quit to menu without saving if afk
 
             # for user convenience, draw both left and right hands
@@ -133,18 +134,34 @@ while prog_running:
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_q:
-                self.od = odrive.find_any()
+            if event.key == pygame.K_q: #quit, huge packet loss and crashes
+                #self.od = odrive.find_any()
 
-                #quit odrive
+                t.stop()
                 pygame.display.quit()
                 pygame.quit()
                 sys.exit()
+
             if event.key == pygame.K_n:
-                pass #newgame without main menu
-            if event.key == pygame.K_r:
-                t.stop() #does not work!!!!!!
+                startTime = int(time.time())
+
+            if event.key == pygame.K_t: #Elapsed time
+                endTime = int(time.time())
+                elapsed = endTime - startTime
+                print("Time elapsed: ", elapsed)
+                sb.checkScores(elapsed)
+
+            if event.key == pygame.K_m: #menu
+                gamestate_started = False
+                startButton.reset()
+
+            if event.key == pygame.K_r: #reset tracker
+                t.stop()
+                t = Tracker()
                 t.run()
+
+
+
 
 
     pygame.display.update()

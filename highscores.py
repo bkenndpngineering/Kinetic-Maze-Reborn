@@ -80,7 +80,7 @@ class Scoreboard:
         random.seed()
         for x in range(0,self.top):
             name = ""
-            for x in range(0,2):
+            for x in range(0,3):
                 name += (random.choice(samplePlaceholder))
             score = random.randint(self.low, self.high)
             self.addEntry(name,score)
@@ -116,9 +116,15 @@ class Scoreboard:
             check = True
 
         if check == True:
-            name = input("INPUT NAME: ")
+            print("High score!\n")#Add notify what place.
+            name = ""
+            while len(name) != 3 and name.isalpha() == False:
+                name = input("INPUT NAME: ") #NAME MUST BE 3 letters, all caps
+            name = name.upper()
             self.addEntry(name, score)
             self.orderScores()
+            print("\nScore saved!\n")
+
         else:
             pass
 
