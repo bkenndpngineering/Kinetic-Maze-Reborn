@@ -110,7 +110,8 @@ while prog_running:
                 #motor.set_velocity(motor.ramp_down())
 
         else:
-            if startButton.inBox(coordinatesRightHand[0], coordinatesRightHand[1]) and startButton.inBox(coordinatesLeftHand[0], coordinatesLeftHand[1]):
+            halfWidth = SCREEN_WIDTH/2
+            if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
                 if startButton.get_pushed() == True:
                     gamestate_started = True
@@ -119,8 +120,9 @@ while prog_running:
                     #AFK tracker to quit to menu without saving if afk
 
             # for user convenience, draw both left and right hands
-            pygame.draw.circle(display, (0,0,255), (int(coordinatesRightHand[0]), int(coordinatesRightHand[1])), 10)
-            pygame.draw.circle(display, (255,0,0), (int(coordinatesLeftHand[0]), int(coordinatesLeftHand[1])), 10)
+            pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
+            pygame.draw.circle(display, (255,0,0), (int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])), 10)
+
 
     else:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
