@@ -104,8 +104,12 @@ class Scoreboard:
 
         with open(self.scorepath, "w") as f:
             index = 0
+            lineCount = 0
             for line in lines:
                 f.write(parsed[index])
+                lineCount += 1
+                if lineCount >= self.top:
+                    break
                 index+=1
 
     def checkScores(self,score):
