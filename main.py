@@ -8,6 +8,8 @@ import math
 import sys
 import time
 
+from .configs.tas import tas
+
 import odrive
 from odrive.enums import *
 
@@ -155,6 +157,11 @@ while prog_running:
                 startButton.reset()
 
             if event.key == pygame.K_r: #reset tracker
+                t.stop()
+                t = Tracker()
+                t.run()
+
+            if event.key == pygame.K_a: #autosolve
                 t.stop()
                 t = Tracker()
                 t.run()
