@@ -8,8 +8,8 @@ import math
 import sys
 import time
 
-
-
+import odrive
+from odrive.enums import *
 
 
 
@@ -87,7 +87,6 @@ while prog_running:
                     angle *= 1
                 else:
                     # velocity negative
-                    #
                     L_height = (angle - 0) * (SCREEN_HEIGHT - 10 - 0) / (90 - 0) + 0
                     angle *= -1
 
@@ -136,7 +135,7 @@ while prog_running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q: #quit, huge packet loss and crashes
                 #self.od = odrive.find_any()
-
+                #self.od.reboot()
                 t.stop()
                 pygame.display.quit()
                 pygame.quit()
