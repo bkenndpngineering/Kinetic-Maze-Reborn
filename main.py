@@ -42,7 +42,7 @@ startButton = Button(100, 50, 50, 50, "Start")
 
 
 # Game
-#motor = KineticMazeMotor()
+motor = KineticMazeMotor()
 
 prog_running = True
 gamestate_started = False
@@ -99,7 +99,7 @@ while prog_running:
 
                 ########## ODRIVE THINGS ############
 
-                #motor.set_velocity(motor.adjust_angle(math.radians(angle)))
+                motor.set_velocity(motor.adjust_angle(math.radians(angle)))
 
                 ########################################
 
@@ -110,7 +110,7 @@ while prog_running:
                 largeSize = largeFont.size("PUT HANDS ABOVE ELBOWS")
                 display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
                 #print("PUT HANDS ABOVE ELBOWS")
-                #motor.set_velocity(motor.ramp_down())
+                motor.set_velocity(motor.ramp_down())
 
         else:
             halfWidth = SCREEN_WIDTH/2 #Main menu gui
@@ -140,8 +140,8 @@ while prog_running:
     for event in events:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_q: #quit
-                #self.od = odrive.find_any()
-                #self.od.reboot()
+                self.od = odrive.find_any()
+                self.od.reboot()
                 t.stop()
                 pygame.display.quit()
                 pygame.quit()
@@ -167,7 +167,7 @@ while prog_running:
 
             if event.key == pygame.K_a: #autosolve
                 print("Beginning autosolve\n")
-                #tas.tas(self.kmm, TAS_PATH, tracker=self.tracker)
+                tas.tas(self.kmm, TAS_PATH, tracker=self.tracker)
                 print("Autosolve complete\n")
 
 
