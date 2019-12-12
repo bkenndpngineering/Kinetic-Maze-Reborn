@@ -39,7 +39,7 @@ class Button: #a crude button, no color change when hover or click. Add if neede
 
         if self.push_count >= 255:
             self.pushed = True
-            
+
 
     def get_pushed(self):
         return self.pushed
@@ -50,8 +50,8 @@ class Button: #a crude button, no color change when hover or click. Add if neede
 
         newText = self.medFont.render(self.text, True, (0,0,255)) #Add text to buttons, at small font
         textSize = self.medFont.size(self.text) ## marked for future review...
-        #screen.blit(newText, (self.xcenter - (textSize[0] / 2.), self.ycenter - (textSize[1] / 2.)))
-        screen.blit(newText, (self.x, self.y)) # marked for review
+        screen.blit(newText, (self.x + self.width/2 - newText.get_rect().width / 2, self.y + self.height/2 - newText.get_rect().height / 2))
+        #screen.blit(newText, (self.x, self.y)) # marked for review
 
     def inBox(self, x, y): #if mouse in box
         if (self.x + self.width) > x > (self.x) and (self.y + self.width) > y > (self.y):
@@ -68,6 +68,7 @@ for event in events:
             l.debug("START BUTTON CLICKED")
 
 '''
+
 
 class Music:
     def __init__(self, musicPath):

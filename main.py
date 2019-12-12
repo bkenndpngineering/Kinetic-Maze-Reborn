@@ -60,6 +60,7 @@ while prog_running:
 
     if gamestate_started == False:
         startButton.draw(display)
+        startButton.reset()
     else:
         # draw scoreboard?
         pass
@@ -106,7 +107,8 @@ while prog_running:
 
             else:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
-                display.blit(newText, (0, 0))
+                largeSize = largeFont.size("PUT HANDS ABOVE ELBOWS")
+                display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
                 #print("PUT HANDS ABOVE ELBOWS")
                 #motor.set_velocity(motor.ramp_down())
 
@@ -128,14 +130,16 @@ while prog_running:
 
     else:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
-        display.blit(newText, (0, 0))
+        largeSize = largeFont.size("NO USER DETECTED")
+        display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
+        #display.blit(newText, ((largeSize[0] / 4), 0))
         #print("NO USER DETECTED")
 
     #events loop for pygame misc.
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_q: #quit, huge packet loss and crashes
+            if event.key == pygame.K_q: #quit
                 #self.od = odrive.find_any()
                 #self.od.reboot()
                 t.stop()
@@ -173,6 +177,8 @@ while prog_running:
 
     pygame.display.update()
     clock.tick(60)
+
+
 
 t.stop()
 pygame.quit()
