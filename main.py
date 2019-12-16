@@ -160,10 +160,10 @@ while prog_running:
                 gamestate_started = False
                 startButton.reset()
 
-            if event.key == pygame.K_r: #reset tracker
-                t.stop()
-                t = Tracker()
-                t.run()
+            #if event.key == pygame.K_r: #reset tracker
+            #    t.stop()
+            #    t = Tracker()
+            #    t.run()
 
             if event.key == pygame.K_a: #autosolve
                 print("Beginning autosolve\n")
