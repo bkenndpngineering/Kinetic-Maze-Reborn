@@ -45,7 +45,7 @@ startButton = Button(100, 50, 50, 50, "Start", 2)
 motor = KineticMazeMotor()
 
 prog_running = True
-gamestate_started = False
+gamestate = 'main'
 while prog_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -58,7 +58,7 @@ while prog_running:
     frame = pygame.transform.flip(frame, True, False)
     display.blit(frame, (0,0))
 
-    if gamestate_started == False:
+    if gamestate == 'main': #Draw main menu
         startButton.draw(display)
         startButton.reset()
     else:
@@ -74,7 +74,7 @@ while prog_running:
     coordinatesLeftElbow = t.get_coordinates("RIGHT_ELBOW")
 
     if angle is not None:
-        if gamestate_started == True:
+        if gamestate == 'game':
             if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]) and (coordinatesRightHand[1] < coordinatesRightElbow[1]):
                 #print(angle)
                 # angles is from 0 to 90 degrees. multiple play styles
@@ -112,7 +112,7 @@ while prog_running:
                 #print("PUT HANDS ABOVE ELBOWS")
                 motor.set_velocity(motor.ramp_down())
 
-        else:
+        elif gamestate == 'main':
             halfWidth = SCREEN_WIDTH/2 #Main menu gui
             if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
@@ -124,16 +124,14 @@ while prog_running:
                     #AFK tracker to quit to menu without saving if afk
 
             # for user convenience, draw both left and right hands
-            pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
-            pygame.draw.circle(display, (255,0,0), (int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])), 10)
+        pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
+        pygame.draw.circle(display, (255,0,0), (int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])), 10)
 
 
     else:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
         largeSize = largeFont.size("NO USER DETECTED")
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
-        #display.blit(newText, ((largeSize[0] / 4), 0))
-        #print("NO USER DETECTED")
 
     #events loop for pygame misc.
     events = pygame.event.get()
@@ -167,7 +165,23 @@ while prog_running:
 
             if event.key == pygame.K_a: #autosolve
                 print("Beginning autosolve\n")
-                tas.tas(self.kmm, TAS_PATH, tracker=self.tracker)
+
+                with open("./configs/tas.json", "r") as f:
+                    route = json.load(f)
+                path = route["path"]
+                for step in path:
+                    if step["kind"] == "pause":
+                        time.sleep(step["duration"])
+                    elif step["kind"] == "move":
+                        motor.go_to_angle(step["target"],
+                                        direction=step.get("direction"),
+                                        max_velocity=step.get("max_velocity"),
+                                        max_accel=step.get("max_accel"),
+                                        max_decel=step.get("max_decel"))
+
+                    else:
+                        raise ValueError("Invalid step kind %r" % (step["kind"],))
+
                 print("Autosolve complete\n")
 
 
