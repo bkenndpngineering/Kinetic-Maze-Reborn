@@ -8,7 +8,6 @@ import math
 import sys
 import time
 
-from configs.tas import tas
 
 import odrive
 from odrive.enums import *
@@ -42,7 +41,7 @@ startButton = Button(100, 50, 50, 50, "Start", 2)
 
 
 # Game
-motor = KineticMazeMotor()
+#motor = KineticMazeMotor()
 
 prog_running = True
 gamestate = 'main'
@@ -99,7 +98,7 @@ while prog_running:
 
                 ########## ODRIVE THINGS ############
 
-                motor.set_velocity(motor.adjust_angle(math.radians(angle)))
+                #motor.set_velocity(motor.adjust_angle(math.radians(angle)))
 
                 ########################################
 
@@ -110,7 +109,7 @@ while prog_running:
                 largeSize = largeFont.size("PUT HANDS ABOVE ELBOWS")
                 display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
                 #print("PUT HANDS ABOVE ELBOWS")
-                motor.set_velocity(motor.ramp_down())
+                #motor.set_velocity(motor.ramp_down())
 
         elif gamestate == 'main':
             halfWidth = SCREEN_WIDTH/2 #Main menu gui
