@@ -38,7 +38,7 @@ startTime = 0
 
 #GUI
 largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 22)
-startButton = Button(100, 50, 50, 50, "Start")
+startButton = Button(100, 50, 50, 50, "Start", 2)
 
 
 # Game

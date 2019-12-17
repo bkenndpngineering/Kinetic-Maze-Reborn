@@ -11,7 +11,7 @@ import time
 #hugeFont = pygame.font.Font("../libs/PressStart2P-Regular.ttf", 32)
 
 class Button: #a crude button, no color change when hover or click. Add if needed
-    def __init__(self, width, height, x, y, text):
+    def __init__(self, width, height, x, y, text, fontSize):
         pygame.font.init()
         self.x = x
         self.y = y
@@ -29,6 +29,9 @@ class Button: #a crude button, no color change when hover or click. Add if neede
         self.pushed = False
         self.push_count = 0
 
+        self.fontSize = fontSize #1 for small, 2 for med, 3 for large, 4 for huuge
+
+
     def reset(self):
         self.push_count = 0
 
@@ -39,6 +42,7 @@ class Button: #a crude button, no color change when hover or click. Add if neede
 
         if self.push_count >= 255:
             self.pushed = True
+            return None
 
 
     def get_pushed(self):
