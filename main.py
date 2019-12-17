@@ -116,7 +116,6 @@ while prog_running:
             if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
                 if startButton.get_pushed() == True:
-                    startButton.reset()
                     gamestate_started = True
                     startTime = int(time.time())
 
