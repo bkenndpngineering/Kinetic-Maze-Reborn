@@ -9,8 +9,8 @@ pip3 install pygame opencv-contrib-python openni
 ```
 
 ## Setup
-1. See readmes of submodules for their dependencies and installation instructions.
-2. After downloading this repository, __before__ running the program
+1. See readmes of submodules for their dependencies and installation instructions. NiTE2 must be installed, instructions found in the Kinect Skeleton Tracker repo readme.
+2. After downloading this repository, __before__ running the program.
   - Run the following:
     ```
     git submodules init
