@@ -61,7 +61,7 @@ while prog_running:
         startButton.draw(display)
         startButton.reset()
 
-    if gamestate = 'scoreboard':
+    if gamestate == 'scoreboard':
         pass
         #display scoreboard or whatever
 
