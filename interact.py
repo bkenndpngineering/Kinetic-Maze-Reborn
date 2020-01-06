@@ -42,6 +42,7 @@ class Button: #a crude button, no color change when hover or click. Add if neede
 
         if self.push_count >= 255:
             self.pushed = True
+            self.push_count = 0
 
 
     def get_pushed(self):
