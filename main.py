@@ -32,7 +32,7 @@ pygame.display.set_caption('Kinetic Maze v.3')
 clock = pygame.time.Clock()
 
 #Timer
-sb = Scoreboard(100, (120, 600))
+sb = Scoreboard(3, (120, 600))
 startTime = 0
 
 #GUI
