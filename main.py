@@ -60,9 +60,11 @@ while prog_running:
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
         startButton.reset()
-    else:
-        # draw scoreboard?
+
+    if gamestate = 'scoreboard':
         pass
+        #display scoreboard or whatever
+
 
     # API usage for reference
     angle = t.calculate_angle("RIGHT_HAND", "LEFT_HAND")
@@ -74,6 +76,7 @@ while prog_running:
 
     if angle is not None:
         if gamestate == 'game':
+
             #if end sensor tripped (game end):
             #endTime = int(time.time())
             #elapsed = endTime - startTime
