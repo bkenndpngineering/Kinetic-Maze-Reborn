@@ -56,7 +56,7 @@ class Button: #a crude button, no color change when hover or click. Add if neede
         screen.blit(newText, (self.x + self.width/2 - newText.get_rect().width / 2, self.y + self.height/2 - newText.get_rect().height / 2))
         #screen.blit(newText, (self.x, self.y)) # marked for review
 
-    def inBox(self, x, y): #if mouse in box
+    def inBox(self, x, y): #if coords in box
         if (self.x + self.width) > x > (self.x) and (self.y + self.width) > y > (self.y):
             return True
         else:
