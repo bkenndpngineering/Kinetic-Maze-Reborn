@@ -127,8 +127,7 @@ while prog_running:
             if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
                 if startButton.get_pushed() == True:
-                    gamestate_started = True
-                    startButton.reset()
+                    gamestate = 'game'
                     #Mech: Trigger ball dropper
                     startTime = int(time.time())
 
