@@ -54,7 +54,7 @@ class KineticMazeMotor:
             self.axis().trap_traj.config.decel_limit = old_traj_md
 
     def report_odrive_error(self):
-        print("NAW ODrive broke man")
+        print("ODrive Error!")
 
     def set_velocity(self, vel, wait=False):
         if abs(vel) < c.physics.VELOCITY_MIN_CUTOFF:
