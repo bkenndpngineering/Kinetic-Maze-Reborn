@@ -59,7 +59,6 @@ while prog_running:
 
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
-        startButton.reset()
 
     if gamestate == 'scoreboard':
         pass
@@ -129,6 +128,7 @@ while prog_running:
                 startButton.push()
                 if startButton.get_pushed() == True:
                     gamestate_started = True
+                    startButton.reset()
                     #Mech: Trigger ball dropper
                     startTime = int(time.time())
 
