@@ -8,7 +8,7 @@ from pygame.locals import *
 
 samplePlaceholder = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 
-
+#This version different from the template, specifically changed to fit the Kinetic Maze
 
 class Scoreboard:
     def __init__(self, amount, scorerange):

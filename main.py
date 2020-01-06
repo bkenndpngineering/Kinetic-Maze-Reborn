@@ -74,6 +74,15 @@ while prog_running:
 
     if angle is not None:
         if gamestate == 'game':
+            #if end sensor tripped (game end):
+            #endTime = int(time.time())
+            #elapsed = endTime - startTime
+            #print("Time elapsed: ", elapsed)
+            #sb.checkScores(elapsed)
+            #Input name, etc
+            #gamestate = "main"
+            #startButton.reset()
+
             if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]) and (coordinatesRightHand[1] < coordinatesRightElbow[1]):
                 #print(angle)
                 # angles is from 0 to 90 degrees. multiple play styles
@@ -117,6 +126,7 @@ while prog_running:
                 startButton.push()
                 if startButton.get_pushed() == True:
                     gamestate_started = True
+                    #Mech: Trigger ball dropper
                     startTime = int(time.time())
 
                     #AFK tracker to quit to menu without saving if afk
@@ -153,7 +163,7 @@ while prog_running:
                 sb.checkScores(elapsed)
 
             if event.key == pygame.K_m: #menu
-                gamestate_started = False
+                gamestate = "main"
                 startButton.reset()
 
             #if event.key == pygame.K_r: #reset tracker
