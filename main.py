@@ -27,6 +27,7 @@ while f is None:
 pygame.init()
 SCREEN_WIDTH = f.shape[1]
 SCREEN_HEIGHT = f.shape[0]
+#display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
 display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Kinetic Maze v.3')
 clock = pygame.time.Clock()
@@ -38,7 +39,8 @@ startTime = 0
 #GUI
 largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 22)
 startButton = Button(100, 50, 50, 50, "Start", 2)
-
+scoreButton = Button(100, 50, 400, 50, "Scores", 2)
+backButton = Button(100, 50, 250, 150, "Back", 2)
 
 # Game
 #motor = KineticMazeMotor()
@@ -59,9 +61,10 @@ while prog_running:
 
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
+        scoreButton.draw(display)
 
     if gamestate == 'scoreboard':
-        pass
+        backButton.draw(display)
         #display scoreboard or whatever
 
 
@@ -72,9 +75,8 @@ while prog_running:
     coordinatesLeftHand = t.get_coordinates("RIGHT_HAND")
     coordinatesRightElbow = t.get_coordinates("LEFT_ELBOW")
     coordinatesLeftElbow = t.get_coordinates("RIGHT_ELBOW")
-
-    if angle is not None:
-        if gamestate == 'game':
+    if gamestate == 'game':
+        if angle is not None:
 
             #if end sensor tripped (game end):
             #endTime = int(time.time())
@@ -165,7 +167,7 @@ while prog_running:
                 sb.checkScores(elapsed)
 
             if event.key == pygame.K_m: #menu
-                gamestate = "main"
+                gamestate = 'main'
                 startButton.reset()
 
             #if event.key == pygame.K_r: #reset tracker
