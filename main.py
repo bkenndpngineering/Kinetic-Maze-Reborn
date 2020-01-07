@@ -59,6 +59,7 @@ while prog_running:
     frame = pygame.transform.flip(frame, True, False)
     display.blit(frame, (0,0))
 
+    #Draw buttons here, push functions go later
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
         scoreButton.draw(display)
@@ -75,7 +76,7 @@ while prog_running:
     coordinatesLeftHand = t.get_coordinates("RIGHT_HAND")
     coordinatesRightElbow = t.get_coordinates("LEFT_ELBOW")
     coordinatesLeftElbow = t.get_coordinates("RIGHT_ELBOW")
-    
+
     if angle is not None:
         if gamestate == 'game':
 
@@ -133,6 +134,7 @@ while prog_running:
                     gamestate = 'game'
                     #Mech: Trigger ball dropper
                     gamestate_started = True
+                    startButton.reset()
                     startTime = int(time.time())
 
                     #AFK tracker to quit to menu without saving if afk
