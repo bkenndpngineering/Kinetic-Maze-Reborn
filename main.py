@@ -75,8 +75,10 @@ while prog_running:
     coordinatesLeftHand = t.get_coordinates("RIGHT_HAND")
     coordinatesRightElbow = t.get_coordinates("LEFT_ELBOW")
     coordinatesLeftElbow = t.get_coordinates("RIGHT_ELBOW")
-    if gamestate == 'game':
-        if angle is not None:
+    
+    if angle is not None:
+        if gamestate == 'game':
+
 
             #if end sensor tripped (game end):
             #endTime = int(time.time())
