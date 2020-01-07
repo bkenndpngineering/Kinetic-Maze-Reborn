@@ -67,6 +67,15 @@ while prog_running:
     if gamestate == 'scoreboard':
         backButton.draw(display)
         #display scoreboard or whatever
+        firstName,firstScore = sb.getEntry(1)
+        secondName,secondScore = sb.getEntry(2)
+        thirdName,thirdScore = sb.getEntry(3)
+
+        header = "PLACE   |   NAME   |   SCORE"
+
+        newText = largeFont.render(header, True, (255, 0, 0))
+        largeSize = largeFont.size(header)
+        display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 200))
 
 
     # API usage for reference
@@ -133,11 +142,24 @@ while prog_running:
                 if startButton.get_pushed() == True:
                     gamestate = 'game'
                     #Mech: Trigger ball dropper
-                    gamestate_started = True
                     startButton.reset()
                     startTime = int(time.time())
 
+            if scoreButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and scoreButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                scoreButton.push()
+                if scoreButton.get_pushed() == True:
+                    gamestate = 'scoreboard'
+                    scoreButton.reset()
+
                     #AFK tracker to quit to menu without saving if afk
+
+        elif gamestate == 'scoreboard':
+            halfWidth = SCREEN_WIDTH/2 #Main menu gui
+            if backButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and backButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                backButton.push()
+                if startButton.get_pushed() == True:
+                    gamestate = 'main'
+                    backButton.reset()
 
             # for user convenience, draw both left and right hands
         pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
@@ -171,7 +193,7 @@ while prog_running:
                 sb.checkScores(elapsed)
 
             if event.key == pygame.K_m: #menu
-                gamestate_started = False
+                gamestate = 'main'
 
             #if event.key == pygame.K_r: #reset tracker
             #    t.stop()
