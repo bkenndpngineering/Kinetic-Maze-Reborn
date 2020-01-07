@@ -40,7 +40,7 @@ startTime = 0
 largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 22)
 startButton = Button(100, 50, 50, 50, "Start", 2)
 scoreButton = Button(100, 50, 400, 50, "Scores", 2)
-backButton = Button(100, 50, 250, 150, "Back", 2)
+backButton = Button(100, 50, 200, 300, "Back", 2)
 
 # Game
 #motor = KineticMazeMotor()
@@ -71,11 +71,11 @@ while prog_running:
         secondName,secondScore = sb.getEntry(2)
         thirdName,thirdScore = sb.getEntry(3)
 
-        header = "PLACE   |   NAME   |   SCORE"
+        header = "PLACE | NAME | SCORE"
 
         newText = largeFont.render(header, True, (255, 0, 0))
         largeSize = largeFont.size(header)
-        display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 200))
+        display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 50))
 
 
     # API usage for reference
