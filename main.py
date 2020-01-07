@@ -86,9 +86,6 @@ while prog_running:
             #Input name, etc
             #gamestate = "main"
             #startButton.reset()
-
-    if angle is not None:
-        if gamestate == 'game':
             if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]) and (coordinatesRightHand[1] < coordinatesRightElbow[1]):
                 #print(angle)
                 # angles is from 0 to 90 degrees. multiple play styles
