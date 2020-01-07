@@ -78,7 +78,6 @@ while prog_running:
     if gamestate == 'game':
         if angle is not None:
 
-<<<<<<< HEAD
             #if end sensor tripped (game end):
             #endTime = int(time.time())
             #elapsed = endTime - startTime
@@ -88,16 +87,8 @@ while prog_running:
             #gamestate = "main"
             #startButton.reset()
 
-=======
     if angle is not None:
         if gamestate == 'game':
->>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
-=======
->>>>>>> 13a921d7bac769b0fcbaf447f6916e755bd621d2
-=======
-    if angle is not None:
-        if gamestate == 'game':
->>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
             if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]) and (coordinatesRightHand[1] < coordinatesRightElbow[1]):
                 #print(angle)
                 # angles is from 0 to 90 degrees. multiple play styles
@@ -140,17 +131,9 @@ while prog_running:
             if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
                 if startButton.get_pushed() == True:
-<<<<<<< HEAD
                     gamestate = 'game'
                     #Mech: Trigger ball dropper
-=======
                     gamestate_started = True
->>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
-=======
->>>>>>> 13a921d7bac769b0fcbaf447f6916e755bd621d2
-=======
-                    gamestate_started = True
->>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
                     startTime = int(time.time())
 
                     #AFK tracker to quit to menu without saving if afk
@@ -187,15 +170,7 @@ while prog_running:
                 sb.checkScores(elapsed)
 
             if event.key == pygame.K_m: #menu
-<<<<<<< HEAD
-<<<<<<< HEAD
-                gamestate = 'main'
-=======
->>>>>>> 13a921d7bac769b0fcbaf447f6916e755bd621d2
-=======
                 gamestate_started = False
->>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
-                startButton.reset()
 
             #if event.key == pygame.K_r: #reset tracker
             #    t.stop()
