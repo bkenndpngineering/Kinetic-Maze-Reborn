@@ -78,6 +78,7 @@ while prog_running:
     if gamestate == 'game':
         if angle is not None:
 
+<<<<<<< HEAD
             #if end sensor tripped (game end):
             #endTime = int(time.time())
             #elapsed = endTime - startTime
@@ -87,6 +88,8 @@ while prog_running:
             #gamestate = "main"
             #startButton.reset()
 
+=======
+>>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
     if angle is not None:
         if gamestate == 'game':
             if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]) and (coordinatesRightHand[1] < coordinatesRightElbow[1]):
@@ -131,8 +134,11 @@ while prog_running:
             if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
                 if startButton.get_pushed() == True:
+<<<<<<< HEAD
                     gamestate = 'game'
                     #Mech: Trigger ball dropper
+=======
+>>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
                     gamestate_started = True
                     startTime = int(time.time())
 
@@ -171,6 +177,10 @@ while prog_running:
 
             if event.key == pygame.K_m: #menu
                 gamestate_started = False
+<<<<<<< HEAD
+=======
+                startButton.reset()
+>>>>>>> parent of 2c26829... Add pseudocode for the day design finally adds new hardware, prob 2025
 
             #if event.key == pygame.K_r: #reset tracker
             #    t.stop()
