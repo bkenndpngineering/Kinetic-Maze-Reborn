@@ -247,11 +247,6 @@ while prog_running:
             if event.key == pygame.K_m: #menu
                 gamestate = 'main'
 
-            #if event.key == pygame.K_r: #reset tracker
-            #    t.stop()
-            #    t = Tracker()
-            #    t.run()
-
             if event.key == pygame.K_a: #autosolve
                 print("Beginning autosolve\n")
 
