@@ -8,16 +8,12 @@ import math
 import sys
 import time
 
-
 import odrive
 from odrive.enums import *
 
-
-
 # map function
 # (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
-
-
+# Unsure of what the above comments are, leaving in case useful - X
 t = Tracker()
 t.run()
 f = t.getFrame()
@@ -32,22 +28,26 @@ display = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Kinetic Maze v.3')
 clock = pygame.time.Clock()
 
-#Timer
+#Timer/Scoreboard Init
 sb = Scoreboard(3, (120, 600))
 startTime = 0
 
-#GUI
+#GUI fonts and buttons
 largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 22)
+#Main screen buttons
 startButton = Button(100, 50, 50, 50, "Start", 2)
 scoreButton = Button(100, 50, 400, 50, "Scores", 2)
 
+#Scoreboard screen buttons
 backButton = Button(100, 50, 200, 300, "Back", 2) #on scoreboard
 
+#Admin screen buttons
 adminQuitButton = Button(100, 50, 50, 50, "Quit", 2)
 adminBackButton = Button(100, 50, 400, 50, "Back", 2)
-# Game
-#motor = KineticMazeMotor()
 
+#Game
+
+#motor = KineticMazeMotor()
 prog_running = True
 gamestate = 'main'
 while prog_running:
@@ -55,6 +55,7 @@ while prog_running:
         if event.type == pygame.QUIT:
             prog_running = False
 
+    #Get the OpenCV frame from tracker, convert to pygame
     frame = t.getFrame()
     frame = (255*frame)
     frame = frame.swapaxes(0, 1)
@@ -62,7 +63,7 @@ while prog_running:
     frame = pygame.transform.flip(frame, True, False)
     display.blit(frame, (0,0))
 
-    #Draw buttons here, push functions go later
+    #Draw buttons here, button presses go later
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
         scoreButton.draw(display)
@@ -84,15 +85,12 @@ while prog_running:
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 50))
 
         newText = largeFont.render(one, True, (255, 0, 0))
-        #largeSize = largeFont.size(one)
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 25))
 
         newText = largeFont.render(two, True, (255, 0, 0))
-        #largeSize = largeFont.size(two)
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
 
         newText = largeFont.render(three, True, (255, 0, 0))
-        #largeSize = largeFont.size(three)
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 + 25))
 
 
@@ -102,7 +100,7 @@ while prog_running:
 
 
 
-    # API usage for reference
+    # API usage for reference, get coords of all joints in format [x,y]
     angle = t.calculate_angle("RIGHT_HAND", "LEFT_HAND")
     difference = t.calculate_difference("RIGHT_HAND", "LEFT_HAND")
     coordinatesRightHand = t.get_coordinates("LEFT_HAND")
@@ -147,7 +145,7 @@ while prog_running:
                     L_height = (angle - 0) * (SCREEN_HEIGHT - 10 - 0) / (90 - 0) + 0
                     angle *= -1
 
-
+                #Draw the angle magnitude indicator rectangles on the side of the game
                 pygame.draw.rect(display, (100, 25, 25), (10, 10, 20, L_height))
                 pygame.draw.rect(display, (100, 25, 25), (SCREEN_WIDTH-30, 10, 20, R_height))
 
@@ -157,7 +155,8 @@ while prog_running:
 
                 ########################################
 
-
+                #AFK tracker to quit to menu without saving if afk probably goes around here
+                #If AFK, run the autosolve (called TAS for some reason)
 
             else:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
@@ -181,10 +180,10 @@ while prog_running:
                     gamestate = 'scoreboard'
                     scoreButton.reset()
 
-                    #AFK tracker to quit to menu without saving if afk
+
 
         elif gamestate == 'scoreboard':
-            halfWidth = SCREEN_WIDTH/2 #Main menu gui
+            halfWidth = SCREEN_WIDTH/2
             if backButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and backButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 backButton.push()
                 if backButton.get_pushed() == True:
@@ -192,7 +191,7 @@ while prog_running:
                     backButton.reset()
 
         elif gamestate == 'admin':
-            halfWidth = SCREEN_WIDTH/2 #Main menu gui
+            halfWidth = SCREEN_WIDTH/2
             if adminQuitButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and adminQuitButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 adminQuitButton.push()
                 if adminQuitButton.get_pushed() == True:
@@ -227,8 +226,7 @@ while prog_running:
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.KEYDOWN:
-
-            if event.key == pygame.K_a: #autosolve
+            if event.key == pygame.K_a: #autosolve, press a
                 print("Beginning autosolve\n")
 
                 with open("./configs/tas.json", "r") as f:
@@ -250,15 +248,11 @@ while prog_running:
                 print("Autosolve complete\n")
 
 
-
-
-
-
     pygame.display.update()
     clock.tick(60)
 
 
-
+#Stuff if prog_running loop broken
 t.stop()
 pygame.quit()
 quit()
