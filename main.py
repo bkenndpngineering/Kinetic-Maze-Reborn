@@ -172,7 +172,7 @@ while prog_running:
             halfWidth = SCREEN_WIDTH/2 #Main menu gui
             if backButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and backButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 backButton.push()
-                if startButton.get_pushed() == True:
+                if backButton.get_pushed() == True:
                     gamestate = 'main'
                     backButton.reset()
 
