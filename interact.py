@@ -34,6 +34,7 @@ class Button: #a crude button, no color change when hover or click. Add if neede
 
     def reset(self):
         self.push_count = 0
+        self.pushed = False
 
     def push(self):
         self.push_count += 1

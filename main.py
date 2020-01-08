@@ -72,10 +72,25 @@ while prog_running:
         thirdName,thirdScore = sb.getEntry(3)
 
         header = "PLACE | NAME | SCORE"
+        one = "1st | " + firstName + "  | "+ str(firstScore)
+        two = "2nd | " + secondName + "  | "+ str(secondScore)
+        three = "3rd | " + thirdName + "  | "+ str(thirdScore)
 
         newText = largeFont.render(header, True, (255, 0, 0))
         largeSize = largeFont.size(header)
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 50))
+
+        newText = largeFont.render(one, True, (255, 0, 0))
+        #largeSize = largeFont.size(one)
+        display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 25))
+
+        newText = largeFont.render(two, True, (255, 0, 0))
+        #largeSize = largeFont.size(two)
+        display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
+
+        newText = largeFont.render(three, True, (255, 0, 0))
+        #largeSize = largeFont.size(three)
+        display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 + 25))
 
 
     # API usage for reference
@@ -161,7 +176,7 @@ while prog_running:
                     gamestate = 'main'
                     backButton.reset()
 
-            # for user convenience, draw both left and right hands
+        # for user convenience, draw both left and right hands
         pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
         pygame.draw.circle(display, (255,0,0), (int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])), 10)
 
@@ -170,6 +185,8 @@ while prog_running:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
         largeSize = largeFont.size("NO USER DETECTED")
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
+
+
 
     #events loop for pygame misc.
     events = pygame.event.get()
