@@ -227,25 +227,6 @@ while prog_running:
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_q: #quit
-                self.od = odrive.find_any()
-                self.od.reboot()
-                t.stop()
-                pygame.display.quit()
-                pygame.quit()
-                sys.exit()
-
-            if event.key == pygame.K_n:
-                startTime = int(time.time())
-
-            if event.key == pygame.K_t: #Elapsed time
-                endTime = int(time.time())
-                elapsed = endTime - startTime
-                print("Time elapsed: ", elapsed)
-                sb.checkScores(elapsed)
-
-            if event.key == pygame.K_m: #menu
-                gamestate = 'main'
 
             if event.key == pygame.K_a: #autosolve
                 print("Beginning autosolve\n")
