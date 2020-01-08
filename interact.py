@@ -74,7 +74,7 @@ for event in events:
 '''
 
 
-class Music:
+class Music: #Unused for now, maybe I'll compose a quick 8bit tune to use as a theme or something
     def __init__(self, musicPath):
         self.musicPath = musicPath
         pygame.mixer.music.load(self.musicPath)
