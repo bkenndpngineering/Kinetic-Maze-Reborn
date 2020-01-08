@@ -40,8 +40,11 @@ startTime = 0
 largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 22)
 startButton = Button(100, 50, 50, 50, "Start", 2)
 scoreButton = Button(100, 50, 400, 50, "Scores", 2)
-backButton = Button(100, 50, 200, 300, "Back", 2)
 
+backButton = Button(100, 50, 200, 300, "Back", 2) #on scoreboard
+
+adminQuitButton = Button(100, 50, 50, 50, "Quit", 2)
+adminBackButton = Button(100, 50, 400, 50, "Back", 2)
 # Game
 #motor = KineticMazeMotor()
 
@@ -93,6 +96,12 @@ while prog_running:
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 + 25))
 
 
+    if gamestate == 'admin':
+        adminQuitButton.draw(display)
+        adminBackButton.draw(display)
+
+
+
     # API usage for reference
     angle = t.calculate_angle("RIGHT_HAND", "LEFT_HAND")
     difference = t.calculate_difference("RIGHT_HAND", "LEFT_HAND")
@@ -113,6 +122,7 @@ while prog_running:
             #Input name, etc
             #gamestate = "main"
             #startButton.reset()
+
             if (coordinatesLeftHand[1] < coordinatesLeftElbow[1]) and (coordinatesRightHand[1] < coordinatesRightElbow[1]):
                 #print(angle)
                 # angles is from 0 to 90 degrees. multiple play styles
@@ -121,8 +131,7 @@ while prog_running:
                 R_height = 0
 
                 if (coordinatesRightHand[1] < coordinatesLeftHand[1]):
-                    # right hand above left...
-                    # velocity positive
+                    # right hand above left, velocity positive
                     R_height =  (angle - 0) * (SCREEN_HEIGHT-10 - 0) / (90 - 0) + 0
                     # map 0, 90, 0 screen_height -10
                     angle *= 1
@@ -147,7 +156,6 @@ while prog_running:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
                 largeSize = largeFont.size("PUT HANDS ABOVE ELBOWS")
                 display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
-                #print("PUT HANDS ABOVE ELBOWS")
                 #motor.set_velocity(motor.ramp_down())
 
         elif gamestate == 'main':
@@ -175,6 +183,26 @@ while prog_running:
                 if backButton.get_pushed() == True:
                     gamestate = 'main'
                     backButton.reset()
+
+        elif gamestate == 'admin':
+            halfWidth = SCREEN_WIDTH/2 #Main menu gui
+            if adminQuitButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and adminQuitButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                adminQuitButton.push()
+                if adminQuitButton.get_pushed() == True:
+                    self.od = odrive.find_any()
+                    self.od.reboot()
+                    t.stop()
+                    pygame.display.quit()
+                    pygame.quit()
+                    sys.exit()
+
+            if adminBackButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and adminBackButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                adminBackButton.push()
+                if adminBackButton.get_pushed() == True:
+                    gamestate = 'main'
+                    adminBackButton.reset()
+
+
 
         # for user convenience, draw both left and right hands
         pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
