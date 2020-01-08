@@ -117,10 +117,7 @@ while prog_running:
 
     if angle is not None:
 
-        #check for pose to enter admin screen: hands below knees
-
-        if coordinatesLeftHand[1] > coordinatesLeftKnee[1] and coordinatesRightHand[1] > coordinatesRightKnee[1]:
-            gamestate = 'admin'
+        #check for button press to bring up admin screen, or button to quit and shutoff
 
         if gamestate == 'game':
 
