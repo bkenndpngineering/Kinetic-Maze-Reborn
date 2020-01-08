@@ -110,9 +110,19 @@ while prog_running:
     coordinatesRightElbow = t.get_coordinates("LEFT_ELBOW")
     coordinatesLeftElbow = t.get_coordinates("RIGHT_ELBOW")
 
-    if angle is not None:
-        if gamestate == 'game':
+    #coordinatesLeftHip = t.get_coordinates("LEFT_HIP")
+    #coordinatesRightHip = t.get_coordinates("RIGHT_HIP")
+    coordinatesLeftKnee = t.get_coordinates("LEFT_KNEE")
+    coordinatesRightKnee = t.get_coordinates("RIGHT_KNEE")
 
+    if angle is not None:
+
+        #check for pose to enter admin screen: hands below knees
+
+        if coordinatesLeftHand[1] > coordinatesLeftKnee[1] and coordinatesRightHand[1] > coordinatesRightKnee[1]:
+            gamestate = 'admin'
+
+        if gamestate == 'game':
 
             #if end sensor tripped (game end):
             #endTime = int(time.time())
