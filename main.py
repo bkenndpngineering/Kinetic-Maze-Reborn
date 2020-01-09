@@ -208,6 +208,9 @@ while prog_running:
                     gamestate = 'main'
                     adminBackButton.reset()
 
+        elif gamestate == 'name':
+            pass #name input screen
+
 
 
         # for user convenience, draw both left and right hands
