@@ -33,17 +33,35 @@ sb = Scoreboard(3, (120, 600))
 startTime = 0
 
 #GUI fonts and buttons
-largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 22)
+smallFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 8)
+medFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 16)
+largeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 24)
+hugeFont = pygame.font.Font("assets/PressStart2P-Regular.ttf", 74)
+
 #Main screen buttons
-startButton = Button(100, 50, 50, 50, "Start", 2)
-scoreButton = Button(100, 50, 400, 50, "Scores", 2)
+startButton = Button(100, 50, 50, 50, "Start", 2, (255,0,0))
+scoreButton = Button(100, 50, 400, 50, "Scores", 2, (255,0,0))
+
+nameButton = Button(100, 50, 200, 200, "Name", 2, (255,0,0)) #For testing, remove when done
 
 #Scoreboard screen buttons
-backButton = Button(100, 50, 200, 300, "Back", 2) #on scoreboard
+backButton = Button(100, 50, 200, 300, "Back", 2, (255,0,0)) #on scoreboard
 
 #Admin screen buttons
-adminQuitButton = Button(100, 50, 50, 50, "Quit", 2)
-adminBackButton = Button(100, 50, 400, 50, "Back", 2)
+adminQuitButton = Button(100, 50, 50, 50, "Quit", 2, (255,0,0))
+adminBackButton = Button(100, 50, 400, 50, "Back", 2, (255,0,0))
+
+#ScoreInputButtons
+firstUpButton = Button(75, 50, 50, 50, "/\\", 2, (255,0,0))
+firstDownButton = Button(75, 50, 50, 200, "\\/", 2, (255,0,0))
+
+secondUpButton = Button(75, 50, 200, 50, "/\\", 2, (255,0,0))
+secondDownButton = Button(75, 50, 200, 200, "\\/", 2, (255,0,0))
+
+thirdUpButton = Button(75, 50, 350, 50, "/\\", 2, (255,0,0))
+thirdDownButton = Button(75, 50, 350, 200, "\\/", 2, (255,0,0))
+
+doneButton = Button(100, 50, 350, 350, "Done", 2, (255,0,0))
 
 #Game
 
@@ -67,6 +85,7 @@ while prog_running:
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
         scoreButton.draw(display)
+        nameButton.draw(display)
 
     if gamestate == 'scoreboard':
         backButton.draw(display)
@@ -81,7 +100,6 @@ while prog_running:
         three = "3rd | " + thirdName + "  | "+ str(thirdScore)
 
         newText = largeFont.render(header, True, (255, 0, 0))
-        largeSize = largeFont.size(header)
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 - 50))
 
         newText = largeFont.render(one, True, (255, 0, 0))
@@ -98,6 +116,38 @@ while prog_running:
         adminQuitButton.draw(display)
         adminBackButton.draw(display)
 
+    if gamestate == 'name':
+        firstUpButton.draw(display)
+        firstDownButton.draw(display)
+
+        secondUpButton.draw(display)
+        secondDownButton.draw(display)
+
+        thirdUpButton.draw(display)
+        thirdDownButton.draw(display)
+
+        doneButton.draw(display)
+
+        '''
+                    firstUpButton = 50, 50 75*50
+                    firstDownButton = 50, 200
+
+                    secondUpButton = 200, 50
+                    secondDownButton = 200, 200
+
+                    thirdUpButton = 350, 50
+                    thirdDownButton = 350, 200
+        '''
+
+        #x: 0
+        #y: 50 + 37.5
+        cover = pygame.surface.Surface((75,100)).convert()
+        cover.fill((0, 0, 0))
+        display.blit(cover, (50,100)) #left
+        display.blit(cover, (200,100)) #middle
+        display.blit(cover, (350,100)) #right
+
+
 
 
     # API usage for reference, get coords of all joints in format [x,y]
@@ -110,8 +160,8 @@ while prog_running:
 
     #coordinatesLeftHip = t.get_coordinates("LEFT_HIP")
     #coordinatesRightHip = t.get_coordinates("RIGHT_HIP")
-    coordinatesLeftKnee = t.get_coordinates("LEFT_KNEE")
-    coordinatesRightKnee = t.get_coordinates("RIGHT_KNEE")
+    #coordinatesLeftKnee = t.get_coordinates("LEFT_KNEE")
+    #coordinatesRightKnee = t.get_coordinates("RIGHT_KNEE")
 
     if angle is not None:
 
@@ -160,9 +210,9 @@ while prog_running:
 
             else:
                 newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
-                largeSize = largeFont.size("PUT HANDS ABOVE ELBOWS")
                 display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
                 #motor.set_velocity(motor.ramp_down())
+
 
         elif gamestate == 'main':
             halfWidth = SCREEN_WIDTH/2 #Main menu gui
@@ -180,7 +230,10 @@ while prog_running:
                     gamestate = 'scoreboard'
                     scoreButton.reset()
 
-
+            if nameButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and nameButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                nameButton.instapush()
+                if nameButton.get_pushed() == True:
+                    gamestate = 'name'
 
         elif gamestate == 'scoreboard':
             halfWidth = SCREEN_WIDTH/2
@@ -209,18 +262,80 @@ while prog_running:
                     adminBackButton.reset()
 
         elif gamestate == 'name':
-            pass #name input screen
+            #name input screen
+            alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+
+            select_one = 0
+            select_two = 0
+            select_three = 0
+
+
+            '''
+            firstUpButton = 50, 50
+            firstDownButton = 50, 200
+
+            secondUpButton = 200, 50
+            secondDownButton = 200, 200
+
+            thirdUpButton = 350, 50
+            thirdDownButton = 350, 200
+            '''
+
+            firstLetter = alpha[select_one]
+            secondLetter = alpha[select_two]
+            thirdLetter = alpha[select_three]
+
+            newText = hugeFont.render(firstLetter, True, (255, 0, 0))
+            hugeSize = hugeFont.size(firstLetter)
+            display.blit(newText, (100 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
+
+            newText = hugeFont.render(secondLetter, True, (255, 0, 0))
+            hugeSize = hugeFont.size(secondLetter)
+            display.blit(newText, (250 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
+
+            newText = hugeFont.render(thirdLetter, True, (255, 0, 0))
+            hugeSize = hugeFont.size(thirdLetter)
+            display.blit(newText, (400 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
+
+            if doneButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and doneButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                doneButton.push()
+                if doneButton.get_pushed() == True:
+                    #Display at bottom "High Score Saved!"
+                    #delay
+
+                    gamestate = 'main'
+                    done = False
+                    doneButton.reset()
+
+            if firstUpButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and firstUpButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                firstUpButton.push()
+                if firstUpButton.get_pushed() == True:
+                    if select_one == 0:
+                        select_one = 23
+                    else:
+                        select_one -= 1
+                    firstUpButton.reset()
+
+            if firstDownButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and firstDownButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                firstDownButton.push()
+                if firstDownButton.get_pushed() == True:
+                    if select_one == 23:
+                        select_one = 0
+                    else:
+                        select_one += 1
+                    firstDownButton.reset()
+
 
 
 
         # for user convenience, draw both left and right hands
-        pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
-        pygame.draw.circle(display, (255,0,0), (int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])), 10)
+        if gamestate is not 'game':
+            pygame.draw.circle(display, (0,0,255), (int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])), 10)
+            pygame.draw.circle(display, (255,0,0), (int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])), 10)
 
 
     else:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
-        largeSize = largeFont.size("NO USER DETECTED")
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
 
 
