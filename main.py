@@ -95,7 +95,7 @@ while prog_running:
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
         scoreButton.draw(display)
-        nameButton.draw(display)
+        #nameButton.draw(display)
 
 
     if gamestate == 'scoreboard':
