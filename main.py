@@ -63,6 +63,14 @@ thirdDownButton = Button(75, 50, 350, 200, "\\/", 2, (255,0,0))
 
 doneButton = Button(100, 50, 350, 350, "Done", 2, (255,0,0))
 
+
+#Name input setup
+alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+
+select_one = 0
+select_two = 0
+select_three = 0
+
 #Game
 
 #motor = KineticMazeMotor()
@@ -139,13 +147,6 @@ while prog_running:
                     thirdDownButton = 350, 200
         '''
 
-        #x: 0
-        #y: 50 + 37.5
-        cover = pygame.surface.Surface((75,100)).convert()
-        cover.fill((0, 0, 0))
-        display.blit(cover, (50,100)) #left
-        display.blit(cover, (200,100)) #middle
-        display.blit(cover, (350,100)) #right
 
 
 
@@ -162,6 +163,7 @@ while prog_running:
     #coordinatesRightHip = t.get_coordinates("RIGHT_HIP")
     #coordinatesLeftKnee = t.get_coordinates("LEFT_KNEE")
     #coordinatesRightKnee = t.get_coordinates("RIGHT_KNEE")
+
 
     if angle is not None:
 
@@ -216,36 +218,44 @@ while prog_running:
 
         elif gamestate == 'main':
             halfWidth = SCREEN_WIDTH/2 #Main menu gui
-            if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if startButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or startButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 startButton.push()
                 if startButton.get_pushed() == True:
                     gamestate = 'game'
                     #Mech: Trigger ball dropper
                     startButton.reset()
                     startTime = int(time.time())
+            else:
+                startButton.reset()
 
-            if scoreButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and scoreButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if scoreButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or scoreButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 scoreButton.push()
                 if scoreButton.get_pushed() == True:
                     gamestate = 'scoreboard'
                     scoreButton.reset()
+            else:
+                scoreButton.reset()
 
-            if nameButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and nameButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if nameButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or nameButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 nameButton.instapush()
                 if nameButton.get_pushed() == True:
                     gamestate = 'name'
+            else:
+                nameButton.reset()
 
         elif gamestate == 'scoreboard':
             halfWidth = SCREEN_WIDTH/2
-            if backButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and backButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if backButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or backButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 backButton.push()
                 if backButton.get_pushed() == True:
                     gamestate = 'main'
                     backButton.reset()
+            else:
+                backButton.reset()
 
         elif gamestate == 'admin':
             halfWidth = SCREEN_WIDTH/2
-            if adminQuitButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and adminQuitButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if adminQuitButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or adminQuitButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 adminQuitButton.push()
                 if adminQuitButton.get_pushed() == True:
                     self.od = odrive.find_any()
@@ -254,21 +264,19 @@ while prog_running:
                     pygame.display.quit()
                     pygame.quit()
                     sys.exit()
+            else:
+                adminQuitButton.reset()
 
-            if adminBackButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and adminBackButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if adminBackButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or adminBackButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 adminBackButton.push()
                 if adminBackButton.get_pushed() == True:
                     gamestate = 'main'
                     adminBackButton.reset()
+            else:
+                adminBackButton.reset()
 
         elif gamestate == 'name':
             #name input screen
-            alpha = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-
-            select_one = 0
-            select_two = 0
-            select_three = 0
-
 
             '''
             firstUpButton = 50, 50
@@ -285,19 +293,25 @@ while prog_running:
             secondLetter = alpha[select_two]
             thirdLetter = alpha[select_three]
 
+            cover = pygame.surface.Surface((75,100)).convert()
+            cover.fill((0, 0, 0))
+            display.blit(cover, (50,100)) #left
+            display.blit(cover, (200,100)) #middle
+            display.blit(cover, (350,100)) #right
+
             newText = hugeFont.render(firstLetter, True, (255, 0, 0))
             hugeSize = hugeFont.size(firstLetter)
-            display.blit(newText, (100 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
+            display.blit(newText, (90 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
 
             newText = hugeFont.render(secondLetter, True, (255, 0, 0))
             hugeSize = hugeFont.size(secondLetter)
-            display.blit(newText, (250 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
+            display.blit(newText, (240 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
 
             newText = hugeFont.render(thirdLetter, True, (255, 0, 0))
             hugeSize = hugeFont.size(thirdLetter)
-            display.blit(newText, (400 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
+            display.blit(newText, (390 - newText.get_rect().width / 2, 150 - newText.get_rect().height / 2))
 
-            if doneButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and doneButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if doneButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or doneButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 doneButton.push()
                 if doneButton.get_pushed() == True:
                     #Display at bottom "High Score Saved!"
@@ -306,24 +320,30 @@ while prog_running:
                     gamestate = 'main'
                     done = False
                     doneButton.reset()
+            else:
+                doneButton.reset()
 
-            if firstUpButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and firstUpButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if firstUpButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or firstUpButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 firstUpButton.push()
                 if firstUpButton.get_pushed() == True:
                     if select_one == 0:
-                        select_one = 23
+                        select_one = 25
                     else:
                         select_one -= 1
                     firstUpButton.reset()
+            else:
+                firstUpButton.reset()
 
-            if firstDownButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) and firstDownButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+            if firstDownButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or firstDownButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 firstDownButton.push()
                 if firstDownButton.get_pushed() == True:
-                    if select_one == 23:
+                    if select_one == 25:
                         select_one = 0
                     else:
                         select_one += 1
                     firstDownButton.reset()
+            else:
+                firstDownButton.reset()
 
 
 
@@ -364,7 +384,8 @@ while prog_running:
                         raise ValueError("Invalid step kind %r" % (step["kind"],))
 
                 print("Autosolve complete\n")
-
+            if event.key == pygame.K_r:
+                t.toggle()
 
     pygame.display.update()
     clock.tick(60)
