@@ -1,7 +1,7 @@
 # Kinetic-Maze-Reborn
 Kinetic Maze project implementation using Kinect-Skeleton-Tracker module
 
-For documentation, see the project wiki.
+For documentation, see the project wiki. If that's not complete (highly likely), see NotesForDevs.md.
 
 ## Python Dependencies
 ```
@@ -21,7 +21,3 @@ pip3 install pygame opencv-contrib-python openni
 
 ## Running the program
 To run the program, run `python3 main.py`.
-
-
-##Notes for future devs
-Instead of editing Tracker, make changes in Kinect_Skeleton_Tracker and push to that, the do the submodule init/update.
