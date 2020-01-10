@@ -47,6 +47,8 @@ Need a way to access the admin screen, by gesture or physical button.
 
 The score input text also isn't ~quite~ centered, just eyeballed it
 
+Only tracks one person per run, needs to restart tracker to track more people...
+
 
 ##Contact Info
 Ask a teacher or something, info might change so response not 100% guaranteed.
