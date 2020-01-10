@@ -266,17 +266,6 @@ while prog_running:
         elif gamestate == 'name':
             #name input screen
 
-            '''
-            firstUpButton = 50, 50
-            firstDownButton = 50, 200
-
-            secondUpButton = 200, 50
-            secondDownButton = 200, 200
-
-            thirdUpButton = 350, 50
-            thirdDownButton = 350, 200
-            '''
-
             firstLetter = alpha[select_one]
             secondLetter = alpha[select_two]
             thirdLetter = alpha[select_three]

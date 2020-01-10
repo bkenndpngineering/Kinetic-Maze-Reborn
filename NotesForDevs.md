@@ -45,6 +45,8 @@ Need a way to access the admin screen, by gesture or physical button.
 
 [Severe] The program crashes the computer with packet loss after around 4.5 minutes of continuous operation. Not tested with people constantly being tracked but that'll probably have the same effect. No idea how to fix, Paul's code mentioned starting a fake stream (then killing it after a short delay) to "bypass a bug," but did not mention what the bug is. Tried that, didn't work. Maybe use the tracker toggle to activate at certain times? Or to toggle the tracker when no body is detected to try to reset the packet loss?  
 
+The score input text also isn't ~quite~ centered, just eyeballed it
+
 
 ##Contact Info
 Ask a teacher or something, info might change so response not 100% guaranteed.
