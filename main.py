@@ -89,11 +89,14 @@ while prog_running:
     frame = pygame.transform.flip(frame, True, False)
     display.blit(frame, (0,0))
 
+
+
     #Draw buttons here, button presses go later
     if gamestate == 'main': #Draw main menu
         startButton.draw(display)
         scoreButton.draw(display)
         nameButton.draw(display)
+
 
     if gamestate == 'scoreboard':
         backButton.draw(display)
@@ -135,21 +138,6 @@ while prog_running:
         thirdDownButton.draw(display)
 
         doneButton.draw(display)
-
-        '''
-                    firstUpButton = 50, 50 75*50
-                    firstDownButton = 50, 200
-
-                    secondUpButton = 200, 50
-                    secondDownButton = 200, 200
-
-                    thirdUpButton = 350, 50
-                    thirdDownButton = 350, 200
-        '''
-
-
-
-
 
     # API usage for reference, get coords of all joints in format [x,y]
     angle = t.calculate_angle("RIGHT_HAND", "LEFT_HAND")
@@ -211,7 +199,7 @@ while prog_running:
                 #If AFK, run the autosolve (called TAS for some reason)
 
             else:
-                newText = largeFont.render("PUT HANDS ABOVE ELBOWS", True, (255, 0, 0))
+                newText = largeFont.render("HANDS ABOVE ELBOWS", True, (255, 0, 0))
                 display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
                 #motor.set_velocity(motor.ramp_down())
 
@@ -314,8 +302,14 @@ while prog_running:
             if doneButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or doneButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
                 doneButton.push()
                 if doneButton.get_pushed() == True:
-                    #Display at bottom "High Score Saved!"
-                    #delay
+                    name = firstLetter + secondLetter + thirdLetter
+                    name.upper()
+                    #sb.addEntry(name, score)
+                    #sb.orderScores()
+
+                    newText = largeFont.render("SCORE SAVED!", True, (255, 0, 0))
+                    display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2 - 100, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 + 150))
+
 
                     gamestate = 'main'
                     done = False
@@ -344,6 +338,52 @@ while prog_running:
                     firstDownButton.reset()
             else:
                 firstDownButton.reset()
+
+            if secondUpButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or secondUpButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                secondUpButton.push()
+                if secondUpButton.get_pushed() == True:
+                    if select_two == 0:
+                        select_two = 25
+                    else:
+                        select_two -= 1
+                    secondUpButton.reset()
+            else:
+                secondUpButton.reset()
+
+            if secondDownButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or secondDownButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                secondDownButton.push()
+                if secondDownButton.get_pushed() == True:
+                    if select_two == 25:
+                        select_two = 0
+                    else:
+                        select_two += 1
+                    secondDownButton.reset()
+            else:
+                secondDownButton.reset()
+
+            if thirdUpButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or thirdUpButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                thirdUpButton.push()
+                if thirdUpButton.get_pushed() == True:
+                    if select_three == 0:
+                        select_three = 25
+                    else:
+                        select_three -= 1
+                    thirdUpButton.reset()
+            else:
+                thirdUpButton.reset()
+
+            if thirdDownButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or thirdDownButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
+                thirdDownButton.push()
+                if thirdDownButton.get_pushed() == True:
+                    if select_three == 25:
+                        select_three = 0
+                    else:
+                        select_three += 1
+                    thirdDownButton.reset()
+            else:
+                thirdDownButton.reset()
+
+
 
 
 

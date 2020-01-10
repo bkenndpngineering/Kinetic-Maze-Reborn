@@ -118,20 +118,9 @@ class Scoreboard:
         name,scoir = self.getEntry(self.top)
         if score < int(scoir): #less score is better
             check = True
+        return check
 
-        if check == True:
-            print("High score!\n")#Add notify what place.
-            name = ""
-            while len(name) != 3 and name.isalpha() == False:
-                name = input("INPUT NAME: ") #NAME MUST BE 3 letters, all caps
-            name = name.upper()
-            self.addEntry(name, score)
-            self.orderScores()
-            print("\nScore saved!\n")
-
-        else:
-            pass
-
+        
     def getTotal(self):
         total = 0
         with open(self.scorepath,"r") as f:
