@@ -26,7 +26,7 @@ prog_running is the main program loop. Every loop, it pulls a frame with the ske
 
 Buttons and other static text are drawn right after the new frame is gotten, and after that various joints are pulled from the tracker.
 
-After joint info is pulled, interactive code runs. From the game, to the actions involved with all the buttons being pushed and what they update, are within the "angle is not None" if statement.
+After joint info is pulled, interactive code runs. From the game, to the actions involved with all the buttons being pushed and what they update, are within the "angle is not None" if statement. When you delete buttons, don't forget to delete the press detection.
 
 (See Current problems section)
 

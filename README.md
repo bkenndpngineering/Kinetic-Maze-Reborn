@@ -16,7 +16,7 @@ pip3 install pygame opencv-contrib-python openni
     git submodules init
     git submodules update
     ```
-  -**This step only needs to be done once post-install, or when submodules are updated**
+  -**This step only needs to be done once post-install, or when submodules are updated** (may not work to update submodules)
 
 
 ## Running the program

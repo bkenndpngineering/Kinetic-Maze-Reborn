@@ -11,6 +11,8 @@ import time
 import odrive
 from odrive.enums import *
 
+toggle_reps = 0 #test to rid packet loss, reset every so many loops if no user
+
 # map function
 # (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 # Unsure of what the above comments are, leaving in case useful - X
@@ -224,12 +226,6 @@ while prog_running:
             else:
                 scoreButton.reset()
 
-            if nameButton.inBox(int(halfWidth - (int(coordinatesRightHand[0] - halfWidth))), int(coordinatesRightHand[1])) or nameButton.inBox(int(halfWidth - (int(coordinatesLeftHand[0] - halfWidth))), int(coordinatesLeftHand[1])):
-                nameButton.instapush()
-                if nameButton.get_pushed() == True:
-                    gamestate = 'name'
-            else:
-                nameButton.reset()
 
         elif gamestate == 'scoreboard':
             halfWidth = SCREEN_WIDTH/2
@@ -298,7 +294,9 @@ while prog_running:
 
                     newText = largeFont.render("SCORE SAVED!", True, (255, 0, 0))
                     display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2 - 100, SCREEN_HEIGHT/2 - newText.get_rect().height / 2 + 150))
-
+                    select_one = 0
+                    select_two = 0
+                    select_three = 0
 
                     gamestate = 'main'
                     done = False
@@ -386,6 +384,11 @@ while prog_running:
     else:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
+        gamestate = 'main'
+        toggle_reps += 1
+        if toggle_reps == 1000:
+            t.toggle()
+            toggle_reps = 0
 
 
 
