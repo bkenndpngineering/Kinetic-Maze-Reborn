@@ -43,7 +43,11 @@ Each button press is detected by the same code, copy pasted. Maybe make it a fun
 
 Need a way to access the admin screen, by gesture or physical button.
 
-[Severe] The program crashes the computer with packet loss after around 4.5 minutes of continuous operation. Not tested with people constantly being tracked but that'll probably have the same effect. No idea how to fix, Paul's code mentioned starting a fake stream (then killing it after a short delay) to "bypass a bug," but did not mention what the bug is. Tried that, didn't work. Maybe use the tracker toggle to activate at certain times? Or to toggle the tracker when no body is detected to try to reset the packet loss?  
+[Severe] The program crashes the computer with packet loss after around 4.5 minutes of continuous operation. No idea how to fix, Paul's code mentioned starting a fake stream (then killing it after a short delay) to "bypass a bug," but did not mention what the bug is. Tried that, didn't work.
+
+Maybe use the tracker toggle to activate at certain times? Or to toggle the tracker when no body is detected to try to reset the packet loss? Resetting the tracker didn't help (ended up with tracker killing self). This test from when someone was actively playing the game for around 5 mins, maybe even less. As soon as packet loss started, the tracker reset button was pressed with no beneficial results.
+
+Last packet loss message was 496 packets lost in 3415 frames.
 
 The score input text also isn't ~quite~ centered, just eyeballed it
 
