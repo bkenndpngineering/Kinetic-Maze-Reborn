@@ -11,8 +11,6 @@ import time
 import odrive
 from odrive.enums import *
 
-toggle_reps = 0 #test to rid packet loss, reset every so many loops if no user
-
 # map function
 # (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 # Unsure of what the above comments are, leaving in case useful - X
@@ -75,7 +73,9 @@ select_three = 0
 
 #Game
 
-#motor = KineticMazeMotor()
+#Odrive
+motor = KineticMazeMotor()
+
 prog_running = True
 gamestate = 'main'
 while prog_running:
@@ -193,7 +193,7 @@ while prog_running:
 
                 ########## ODRIVE THINGS ############
 
-                #motor.set_velocity(motor.adjust_angle(math.radians(angle)))
+                motor.set_velocity(motor.adjust_angle(math.radians(angle)))
 
                 ########################################
 
@@ -203,7 +203,7 @@ while prog_running:
             else:
                 newText = largeFont.render("HANDS ABOVE ELBOWS", True, (255, 0, 0))
                 display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
-                #motor.set_velocity(motor.ramp_down())
+                motor.set_velocity(motor.ramp_down())
 
 
         elif gamestate == 'main':
@@ -385,10 +385,7 @@ while prog_running:
         newText = largeFont.render("NO USER DETECTED", True, (255, 0, 0))
         display.blit(newText, (SCREEN_WIDTH/2 - newText.get_rect().width / 2, SCREEN_HEIGHT/2 - newText.get_rect().height / 2))
         gamestate = 'main'
-        toggle_reps += 1
-        if toggle_reps == 1000:
-            t.toggle()
-            toggle_reps = 0
+
 
 
 
