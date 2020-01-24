@@ -74,7 +74,7 @@ select_three = 0
 #Game
 
 #Odrive
-motor = KineticMazeMotor()
+#motor = KineticMazeMotor()
 
 prog_running = True
 gamestate = 'main'
@@ -181,11 +181,11 @@ while prog_running:
                     # right hand above left, velocity positive
                     R_height =  (angle - 0) * (SCREEN_HEIGHT-10 - 0) / (90 - 0) + 0
                     # map 0, 90, 0 screen_height -10
-                    angle *= 1
+                    angle *= -1 #reversed - test
                 else:
                     # velocity negative
                     L_height = (angle - 0) * (SCREEN_HEIGHT - 10 - 0) / (90 - 0) + 0
-                    angle *= -1
+                    angle *= 1
 
                 #Draw the angle magnitude indicator rectangles on the side of the game
                 pygame.draw.rect(display, (100, 25, 25), (10, 10, 20, L_height))
@@ -193,7 +193,7 @@ while prog_running:
 
                 ########## ODRIVE THINGS ############
 
-                motor.set_velocity(motor.adjust_angle(math.radians(angle)))
+                #motor.set_velocity(motor.adjust_angle(math.radians(angle)))
 
                 ########################################
 
